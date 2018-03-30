@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SandboxesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @sandbox = sandboxes(:one)
+    @sandbox = sandboxes(:dummy_sandbox)
   end
 
   test "should get index" do

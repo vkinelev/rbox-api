@@ -1,23 +1,13 @@
 class BuildSandboxJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    # Do something later
-    sandbox = args.first
-    tmp_dir = "/tmp/rbox-repositories"
-
-    git_clone_cmd = ""
-    git_base_url = 'http://git-server:3000/git'
-    git_repo_name = "#{sandbox.name}.git"
-    git_repo_url = "#{git_base_url}/#{git_repo_name}"
-    git_tmp_repo_directory = "/tmp/rbox-repositories/#{sandbox.name}"
-
-    output = `git clone "#{git_repo_url}" "#{git_tmp_repo_directory}"`
-
-    if $?.exitstatus != 0
-      raise "Unable to clone git repository #{git_repo_url}: #{output}" 
+  def perform(sandbox)
+    Dir.mktmpdir("rbox") do |dir|
+      Rugged::Repository.clone_at(sandbox.git_repository_url, dir)
+      image = Docker::Image.build_from_dir(dir)
+      # implies tag: 'latest'
+      image.tag(repo: sandbox.docker_registry_name, force: true)
+      image.push
     end
-
-    FileUtils.rm_rf(git_tmp_repo_directory)
   end
 end

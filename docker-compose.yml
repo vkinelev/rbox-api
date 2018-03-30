@@ -3,10 +3,14 @@ services:
   db:
     image: postgres:9.6
   api:
+    environment:
+      - GIT_BASE_URL=file:///api/test/fixtures/git
+      - DOCKER_REGISTRY_URL=localhost:5000
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - .:/api
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "3000:3000"
     depends_on:

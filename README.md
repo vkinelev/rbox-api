@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# Environment variables
+
+* GIT_BASE_URL - http://localhost:8080/git
+* DOCKER_REGISTRY_URL - http://my-registry:3000

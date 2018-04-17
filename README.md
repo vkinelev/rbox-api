@@ -25,5 +25,12 @@ Things you may want to cover:
 
 # Environment variables
 
-* GIT_BASE_URL - http://localhost:8080/git
-* DOCKER_REGISTRY_URL - http://my-registry:3000
+1. rails new . --force --database=sqlite3 --skip-coffee
+
+2. Ports & DNSs
+
+3. Set insecure registry
+
+{
+  "insecure-registries" : ["192.168.99.100:5000"]        
+}

@@ -54,3 +54,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # rugget - libgit2 bindings in Ruby
 gem 'rugged'
 gem 'docker-api'
+gem 'docker-swarm-sdk'

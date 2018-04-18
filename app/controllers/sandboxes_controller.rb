@@ -1,5 +1,6 @@
 class SandboxesController < ApplicationController
-  before_action :set_sandbox, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: :deploy, if: :api?
+  before_action :set_sandbox, only: [:show, :edit, :update, :destroy, :deploy]
 
   # GET /sandboxes
   # GET /sandboxes.json
@@ -61,6 +62,16 @@ class SandboxesController < ApplicationController
     end
   end
 
+  # POST /sandboxes/1/deploy
+  # POST /sandboxes/1/deploy.json
+  def deploy
+    BuildSandboxJob.perform_later(@sandbox)
+    respond_to do |format|
+      format.html { redirect_to @sandbox, notice: 'Sandbox has been enqueued for the deployment.' }
+      format.json { head :accepted }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sandbox
@@ -70,5 +81,9 @@ class SandboxesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def sandbox_params
       params.require(:sandbox).permit(:name)
+    end
+
+    def api?
+      request.format.json?
     end
 end

@@ -8,9 +8,14 @@ class Sandbox < ApplicationRecord
     [ENV['DOCKER_REGISTRY_URL'], name].join('/')
   end
 
+  def app_url
+    ENV['BASE_HOST_FOR_SANDBOXES'] + ":#{app_port}"
+  end
+
   def docker_service_options
     service_create_options = {"Name"=> name,
      "TaskTemplate" => {
+       "ForceUpdate" => 1,
        "ContainerSpec" => {
          "Networks" => [],
          "Image" => docker_registry_name,
@@ -54,7 +59,7 @@ class Sandbox < ApplicationRecord
         "Ports" => [
           {
             "Protocol"=>"http",
-            "PublishedPort" => 3001,
+            "PublishedPort" => app_port,
             "TargetPort" => 3000
           }
         ]
@@ -66,5 +71,9 @@ class Sandbox < ApplicationRecord
 
     def git_repository_basename
       "#{name}.git"
+    end
+
+    def app_port
+      3000 + id
     end
 end

@@ -4,6 +4,15 @@
   <strong>Name:</strong>
   <%= @sandbox.name %>
 </p>
+<p>
+  <strong>Git repository URL:</strong>
+  <%= @sandbox.git_repository_url %>
+</p>
+<p>
+  <strong>App URL:</strong>
+  <%= @sandbox.app_url %>
+</p>
 
-<%= link_to 'Edit', edit_sandbox_path(@sandbox) %> |
+<%= button_to "Deploy", deploy_sandbox_url(@sandbox) %>
+
 <%= link_to 'Back', sandboxes_path %>

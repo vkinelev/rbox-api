@@ -5,6 +5,7 @@ services:
   api:
     environment:
       # - GIT_BASE_URL=file:///api/test/fixtures/git
+      - BASE_HOST_FOR_SANDBOXES=192.168.99.100
       - GIT_BASE_URL=file:///data/git
       - DOCKER_REGISTRY_URL=192.168.99.100:5000
       - DOCKER_URL=tcp://192.168.99.100:2376

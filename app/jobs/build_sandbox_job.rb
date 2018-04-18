@@ -16,7 +16,7 @@ class BuildSandboxJob < ApplicationJob
     swarm = Docker::Swarm::Swarm.find(docker_connection)
     begin
       service = swarm.find_service(sandbox.name)
-      service.restart
+      service.update(sandbox.docker_service_options)
     rescue Excon::Error::NotFound
       swarm.create_service(sandbox.docker_service_options)
     end

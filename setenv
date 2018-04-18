@@ -1,4 +1,4 @@
-# For development: Sets ENVs for docker-compose file
+
 export DOCKER_CA=`cat /home/victor/.docker/machine/certs/ca.pem`
 export DOCKER_CERT=`cat /home/victor/.docker/machine/certs/cert.pem`
 export DOCKER_KEY=`cat /home/victor/.docker/machine/certs/key.pem`

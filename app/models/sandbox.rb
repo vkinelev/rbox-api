@@ -4,7 +4,7 @@ class Sandbox < ApplicationRecord
   before_validation :generate_name
 
   after_create :setup_git_repository
-  after_create :enqueue_build_and_deploy
+  after_create_commit :enqueue_build_and_deploy
 
   def generate_name
     self.name = SecureRandom.base58(24).downcase

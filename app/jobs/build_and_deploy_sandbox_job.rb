@@ -1,4 +1,4 @@
-class BuildSandboxJob < ApplicationJob
+class BuildAndDeploySandboxJob < ApplicationJob
   queue_as :default
 
   def perform(sandbox)

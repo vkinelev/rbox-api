@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require 'net/http'
+require 'uri'
+
+def sandbox_id
+  File.basename(Dir.pwd, '.git')
+end
+
+def notify_rbox_api_about_new_push(sandbox_id)
+  webhook_uri =
+    URI.join(ENV['RBOX_API_BASE_URL'], '/sandboxes/', "#{sandbox_id}/", 'deploy.json')
+  headers = {
+    'Content-Type': 'application/json'
+  }
+  Net::HTTP.post(webhook_uri, '')
+end
+
+notify_rbox_api_about_new_push(sandbox_id)

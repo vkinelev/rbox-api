@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BuildSandboxJobTest < ActiveJob::TestCase
+class BuildAndDeploySandboxJobTest < ActiveJob::TestCase
 
   def setup
     # `docker run -d -p 5000:5000 --name registry registry:2`

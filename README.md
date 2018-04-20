@@ -23,11 +23,11 @@ Things you may want to cover:
 
 * ...
 
-# Environment variables
+# Notes
 
 1. rails new . --force --database=sqlite3 --skip-coffee
 
-2. Ports & DNSs
+2. Use reverse-proxy to host multiple sandboxes on the same ip/port
 
 3. Set insecure registry
 

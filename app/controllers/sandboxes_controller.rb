@@ -65,7 +65,7 @@ class SandboxesController < ApplicationController
   # POST /sandboxes/1/deploy
   # POST /sandboxes/1/deploy.json
   def deploy
-    BuildSandboxJob.perform_later(@sandbox)
+    BuildAndDeploySandboxJob.perform_later(@sandbox)
     respond_to do |format|
       format.html { redirect_to @sandbox, notice: 'Sandbox has been enqueued for the deployment.' }
       format.json { head :accepted }

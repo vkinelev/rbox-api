@@ -6,13 +6,32 @@ def sandbox_id
   File.basename(Dir.pwd, '.git')
 end
 
-def notify_rbox_api_about_new_push(sandbox_id)
-  webhook_uri =
-    URI.join(ENV['RBOX_API_BASE_URL'], '/sandboxes/', "#{sandbox_id}/", 'deploy.json')
-  headers = {
-    'Content-Type': 'application/json'
-  }
-  Net::HTTP.post(webhook_uri, '')
+def sandbox_api_base_url
+  ENV['RBOX_API_BASE_URL'] || 'http://api:3000'
 end
 
-notify_rbox_api_about_new_push(sandbox_id)
+def sandbox_deploy_uri(sandbox_id)
+  URI.join(
+    sandbox_api_base_url,
+    '/sandboxes/',
+    "#{sandbox_id}/",
+    'deploy.json'
+  )
+end
+
+def post(uri)
+  req = Net::HTTP::Post.new(uri)
+  req['Content-Type'] = 'application/json'
+  req['Accept'] = 'application/json'
+  Net::HTTP.start(uri.hostname, uri.port) do |http|
+    http.request(req)
+  end
+end
+
+def notify_rbox_api_about_new_push(sandbox_id)
+  uri = sandbox_deploy_uri(sandbox_id)
+  post(uri)
+end
+
+res = notify_rbox_api_about_new_push(sandbox_id)
+puts "status of the post request to sandbox deploy URL: #{res.code}"

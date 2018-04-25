@@ -1,6 +1,6 @@
 class SandboxesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :deploy, if: :api?
-  before_action :set_sandbox, only: [:show, :edit, :update, :destroy, :deploy]
+  before_action :set_sandbox, only: [:show, :edit, :update, :destroy]
 
   # GET /sandboxes
   # GET /sandboxes.json
@@ -62,10 +62,10 @@ class SandboxesController < ApplicationController
     end
   end
 
-  # POST /sandboxes/1/deploy
-  # POST /sandboxes/1/deploy.json
+  # POST /sandboxes/gmjs4tw4dk5peypzlavhcpim/deploy
+  # POST /sandboxes/gmjs4tw4dk5peypzlavhcpim/deploy.json
   def deploy
-    BuildAndDeploySandboxJob.perform_later(@sandbox)
+    BuildAndDeploySandboxJob.perform_later(Sandbox.find_by_name!(params[:id]))
     respond_to do |format|
       format.html { redirect_to @sandbox, notice: 'Sandbox has been enqueued for the deployment.' }
       format.json { head :accepted }

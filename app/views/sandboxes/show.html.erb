@@ -6,11 +6,11 @@
 </p>
 <p>
   <strong>Git repository URL:</strong>
-  <%= @sandbox.git_repository_url %>
+  <%= @sandbox.git_public_repository_url %>
 </p>
 <p>
   <strong>App URL:</strong>
-  <%= @sandbox.app_url %>
+  <%= link_to 'View App', @sandbox.app_url, target: "_blank", rel: "nofollow" %>
 </p>
 
 <%= button_to "Deploy", deploy_sandbox_url(@sandbox) %>

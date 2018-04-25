@@ -23,6 +23,10 @@ Things you may want to cover:
 
 * ...
 
+# Next...
+
+4. Ruby version in git-server is 2.1 (it is installed with apt-get). This version does not have Net::HTTP.post
+
 # Notes
 
 1. rails new . --force --database=sqlite3 --skip-coffee

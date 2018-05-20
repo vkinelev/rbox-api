@@ -1,5 +1,15 @@
 {
   "name": "api",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "4.0.0-pre.2",
+    "css-loader": "^0.28.11",
+    "monaco-editor": "^0.13.0",
+    "monaco-editor-webpack-plugin": "^1.2.0",
+    "stimulus": "^1.0.1",
+    "style-loader": "^0.21.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
 }

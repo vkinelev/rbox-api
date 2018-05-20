@@ -55,3 +55,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rugged'
 gem 'docker-api'
 gem 'docker-swarm-sdk'
+# gem 'webpacker', '~> 3.5'
+gem 'webpacker', '>= 4.0.x'

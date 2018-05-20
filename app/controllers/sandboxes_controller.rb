@@ -1,6 +1,6 @@
 class SandboxesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :deploy, if: :api?
-  before_action :set_sandbox, only: [:show, :edit, :update, :destroy]
+  before_action :set_sandbox, only: [:show, :edit, :update, :destroy, :file_contents]
 
   # GET /sandboxes
   # GET /sandboxes.json
@@ -11,6 +11,21 @@ class SandboxesController < ApplicationController
   # GET /sandboxes/1
   # GET /sandboxes/1.json
   def show
+    Dir.mktmpdir("rbox") do |dir|
+      Rugged::Repository.clone_at(@sandbox.git_repository_url, dir)
+      @files = Dir[dir + '/**/*']
+        .reject { |f| File.directory?(f) }
+        .map { |f| f.sub(dir + '/', '') }
+        .sort { |a, b| a.downcase <=> b.downcase }
+    end
+  end
+
+  def file_contents
+    Dir.mktmpdir("rbox") do |dir|
+      Rugged::Repository.clone_at(@sandbox.git_repository_url, dir)
+
+      send_data File.read(dir + '/' + params[:filename]), type: 'text/plain', disposition: 'inline'
+    end
   end
 
   # GET /sandboxes/new

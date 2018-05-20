@@ -28,6 +28,10 @@ class SandboxesController < ApplicationController
     end
   end
 
+  def files
+    logger.debug params
+  end
+
   # GET /sandboxes/new
   def new
     @sandbox = Sandbox.new

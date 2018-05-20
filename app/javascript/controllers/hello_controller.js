@@ -43,4 +43,22 @@ export default class extends Controller {
         this.editor.setValue(html);
       });
   }
+
+  save() {
+    var aFileParts = ['<a id="a"><b id="b">hey!</b></a>']; // an array consisting of a single DOMString
+    var oMyBlob = new Blob(aFileParts, { type : 'text/html' }); // the blob
+
+    var formData = new FormData();
+    // formData.append('authenticity_token', document.querySelector("meta[name='csrf-token']").getAttribute("content"));
+    formData.append('files[]', oMyBlob, 'test.rb');
+
+    fetch('/sandboxes/10/files', {
+      method: 'POST',
+      body: formData,
+      credentials: 'same-origin',
+      headers: {
+        'X-CSRF-Token': document.querySelector("meta[name='csrf-token']").getAttribute("content")
+      }
+    })
+  }
 }

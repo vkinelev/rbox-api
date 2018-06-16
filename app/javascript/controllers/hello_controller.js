@@ -50,9 +50,9 @@ export default class extends Controller {
 
     var formData = new FormData();
     // formData.append('authenticity_token', document.querySelector("meta[name='csrf-token']").getAttribute("content"));
-    formData.append('files[]', oMyBlob, 'test.rb');
+    formData.append('files[]', oMyBlob, 'app/test.rb');
 
-    fetch('/sandboxes/10/files', {
+    fetch('/sandboxes/10/save_changes', {
       method: 'POST',
       body: formData,
       credentials: 'same-origin',

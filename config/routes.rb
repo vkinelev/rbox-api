@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :sandboxes do
     post :deploy, on: :member
     get :file_contents, on: :member
-    post :files, on: :member
+    post :save_changes, on: :member
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

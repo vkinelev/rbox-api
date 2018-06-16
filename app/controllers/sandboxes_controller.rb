@@ -28,8 +28,21 @@ class SandboxesController < ApplicationController
     end
   end
 
-  def files
+  def save_changes
     logger.debug params
+
+    Dir.mktmpdir("rbox") do |dir|
+      repo = Rugged::Repository.clone_at(@sandbox.git_repository_url, dir)
+      index = repo.index
+      params[:files].each do |uploaded_file|
+        dest = File.join(dir, uploaded_file.file_name)
+        FileUtils.cp(
+          uploaded_file.tempfile.path,
+          dest
+        )
+        # index.add(uploaded_file.file_name)
+      end
+    end
   end
 
   # GET /sandboxes/new

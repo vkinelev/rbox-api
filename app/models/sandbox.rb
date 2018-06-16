@@ -1,4 +1,4 @@
-class Sandbox < ApplicationRecord
+ class Sandbox < ApplicationRecord
   validates :name, presence: true
 
   before_validation :generate_name
